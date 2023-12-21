@@ -3,38 +3,55 @@
 class ApList {
 
     init(size: Int){
-        self.AplArraySize = size
-        self.AplEntries = 0
-        self.AplArray = []
+        self.aplArraySize = size
+        self.aplEntries = 0
+        self.aplArray = []
     }
     deinit{
 
     }
     func aplist_add(apInfoT: ApInfoT) -> Int{
-        for
+        var count : Int = 0
+        for tag in self.aplArray {
+            if tag.mobileCount < apInfoT.mobileCount {
+                self.aplArray.insert(apInfoT, at: count)
+                self.aplEntries+=1
+                return 1
+            }
+            else if tag.mobileCount == apInfoT.mobileCount && tag.ethAddress > apInfoT.ethAddress {
+                self.aplArray.insert(apInfoT, at: count)
+                self.aplEntries+=1
+                return 1
+            }
+            count+=1
+        }
+        return 0
     }
     func aplist_find(index: Int) -> ApInfoT{
-        return self.AplArray[0]
+        return self.aplArray[0]
     }
     func aplist_access(index: Int) -> ApInfoT{
-        return self.AplArray[index]
+        return self.aplArray[index]
     }
     func aplist_remove(index: Int) -> ApInfoT{
-        return self.AplArray.remove(at: index)
+        self.aplEntries-=1
+        return self.aplArray.remove(at: index)
     }
     func aplist_inc(index: Int) -> Int{
+        self.aplArray[index].mobileCount+=1
         return 0
     }
     func aplist_dec(index: Int) -> Int{
+        self.aplArray[index].mobileCount-=1
         return 0
     }
     func aplist_number_entries() -> Int{
-        return self.AplEntries
+        return self.aplEntries
     }
 
-    var AplArraySize: Int
-    var AplEntries: Int
-    var AplArray: [ApInfoT]
+    var aplArraySize: Int
+    var aplEntries: Int
+    var aplArray: [ApInfoT]
 }
 
 struct ApInfoT {
