@@ -46,7 +46,7 @@ class ApList {
         return self.aplArray.remove(at: index)
     }
     func aplist_inc(index: Int) -> Int{
-        if let ret = self.aplArray[index]?.mobileCount{
+        if self.aplArray[index] != nil{
             self.aplArray[index]!.mobileCount+=1
             return self.aplArray[index]!.mobileCount
         }else{
@@ -55,7 +55,7 @@ class ApList {
         }
     }
     func aplist_dec(index: Int) -> Int{
-        if let ret = self.aplArray[index]?.mobileCount{
+        if self.aplArray[index] != nil{
             self.aplArray[index]!.mobileCount-=1
             return self.aplArray[index]!.mobileCount
         }else{
