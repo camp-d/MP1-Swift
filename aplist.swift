@@ -2,8 +2,8 @@
 
 class ApList {
 
-    init(size: Int){
-        self.aplArraySize = size
+    init(){
+        self.aplArraySize = 0
         self.aplEntries = 0
         self.aplArray = []
     }
@@ -67,6 +67,13 @@ class ApList {
         return self.aplEntries
     }
 
+    func aplist_print() {
+        for tag in self.aplArray {
+            if let tag = tag{
+                print("MC: \(tag.mobileCount) ETH: \(tag.ethAddress) \n")
+            }
+        }
+    }
     var aplArraySize: Int
     var aplEntries: Int
     var aplArray: [ApInfoT?]
