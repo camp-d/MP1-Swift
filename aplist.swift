@@ -11,15 +11,31 @@ class ApList {
     }
     func aplist_add(apInfoT: ApInfoT?) -> Int{
         var count : Int = 0
+
+        if self.aplEntries == 0 {
+            self.aplArray.insert(apInfoT, at: 0)
+            self.aplEntries+=1
+            print("insert into empty")
+            return 1
+        }
+
         for tag in self.aplArray {
             if let tag = tag, let apInfoT = apInfoT, tag.mobileCount < apInfoT.mobileCount {
                 self.aplArray.insert(apInfoT, at: count)
                 self.aplEntries+=1
+                print("insert 1")
                 return 1
             }
-            else if let tag = tag, let apInfoT = apInfoT, tag.mobileCount == apInfoT.mobileCount && tag.ethAddress > apInfoT.ethAddress {
+            else if let tag = tag, let apInfoT = apInfoT, tag.mobileCount == apInfoT.mobileCount && tag.ethAddress < apInfoT.ethAddress {
                 self.aplArray.insert(apInfoT, at: count)
                 self.aplEntries+=1
+                print("insert 2")
+                return 1
+            }
+            else if let tag = tag, let apInfoT = apInfoT, count == self.aplEntries - 1 {
+                self.aplArray.append(apInfoT)
+                self.aplEntries+=1
+                print("insert end")
                 return 1
             }
             count+=1
@@ -48,6 +64,9 @@ class ApList {
     func aplist_inc(index: Int) -> Int{
         if self.aplArray[index] != nil{
             self.aplArray[index]!.mobileCount+=1
+
+            //implement adjustment for inc 
+
             return self.aplArray[index]!.mobileCount
         }else{
             print("Nil at index:\(index)")
@@ -57,6 +76,11 @@ class ApList {
     func aplist_dec(index: Int) -> Int{
         if self.aplArray[index] != nil{
             self.aplArray[index]!.mobileCount-=1
+
+
+            //implement adjustment for dec
+
+
             return self.aplArray[index]!.mobileCount
         }else{
             print("Nil at index:\(index)")
@@ -68,6 +92,7 @@ class ApList {
     }
 
     func aplist_print() {
+        print("\n ***PRINTING APLIST*** ")
         for tag in self.aplArray {
             if let tag = tag{
                 print("MC: \(tag.mobileCount) ETH: \(tag.ethAddress) \n")
